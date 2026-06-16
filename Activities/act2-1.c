@@ -34,6 +34,7 @@ int main()
         }
     }
 
+    //Waiting for all the children
     for (int i = 0; i < 3; i++)
     {
         wait(NULL);
