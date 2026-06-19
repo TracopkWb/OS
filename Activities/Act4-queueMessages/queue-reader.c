@@ -57,7 +57,7 @@ int main()
 
     while (1)
     {
-        if (msgrcv(queueId, &receivedMember, sizeof(receivedMember.name), 0, 0) == -1)
+        if (msgrcv(queueId, &receivedMember, sizeof(receivedMember.name), 1, 0) == -1)
         {
             LOG_ERROR("msgrcv failed");
             exit(EXIT_FAILURE);
