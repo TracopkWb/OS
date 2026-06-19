@@ -19,6 +19,7 @@
 // Show the messages in the message queue
 
 // Functions Section
+void checkForLowerAndBlankSpaces(char *msg);
 
 // Global Variables
 #define MAX_LENGTH 100
@@ -70,7 +71,30 @@ int main()
         LOG_INFO("Received: %s, Level: %ld",
                  receivedMessage.text,
                  receivedMessage.type);
+        checkForLowerAndBlankSpaces(receivedMessage.text);
+        
     }
 
     return 0;
+}
+
+
+void checkForLowerAndBlankSpaces(char *msg)
+{
+    int numVowels = 0;
+    int numBlankSpaces = 0;
+
+    for(int i = 0; msg[i] != '\0'; i++) {
+      
+      if((msg[i] == 'a' || msg[i] == 'e' || msg[i] == 'i' || msg[i] == 'o' || msg[i] == 'u')) {
+         printf("%c is a vowel letter.\n", msg[i]);
+         LOG_INFO("%c is a vowel letter.", msg[i]);
+      }else if(msg[i] == ' ') {
+         printf("%c is a blank space.\n", msg[i]);
+         LOG_INFO("%c is a blank space.", msg[i]);
+      }
+
+      LOG_PASS("Number of vowels: %d", numVowels);
+      LOG_PASS("Number of blank spaces: %d", numBlankSpaces);
+   }
 }
