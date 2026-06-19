@@ -58,13 +58,20 @@ int main()
     int numberOfMembers = 0;
     errno = 0;
 
-    while (msgrcv(
-               queueId,
-               &receivedMember,
-               sizeof(receivedMember) - sizeof(long),
-               0,
-               IPC_NOWAIT) != -1)
+    while (1)
     {
+        if (msgrcv(queueId, &receivedMember, sizeof(receivedMember) - sizeof(long), 0, IPC_NOWAIT) == -1)
+        {
+            if (errno == ENOMSG)
+            {
+                break;
+            }
+            else
+            {
+                LOG_ERROR("msgrcv failed");
+                exit(EXIT_FAILURE);
+            }
+        }
         members[numberOfMembers++] = receivedMember;
     }
 
