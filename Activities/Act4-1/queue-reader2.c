@@ -87,13 +87,12 @@ void checkForLowerAndBlankSpaces(char *text)
     for (int i = 0; text[i] != '\0'; i++)
     {
 
-        if ((text[i] >= 'A' && text[i] <= 'Z'))
+        if (isupper(text[i]))
         {
             numUppercase++;
         }
-        else if (!((text[i] == 'a' || text[i] == 'e' || text[i] == 'i' || text[i] == 'o' || text[i] == 'u')) || !((|| text[i] == 'E' || text[i] == 'I' || text[i] == 'O' || text[i] == 'U')))
+        else if (!isVowel(text[i]))
         {
-
             numConsonants++;
         }
     }
