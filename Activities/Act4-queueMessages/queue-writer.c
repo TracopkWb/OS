@@ -62,7 +62,7 @@ int main()
         scanf("%s", member2Send.name);
         printf("\tEnter family level: \n");
         scanf("%ld", &member2Send.fam_Level);
-        if(msgsnd(queueId, &member2Send, sizeof(struct familyMember) - sizeof(long), 0) == -1)
+        if(msgsnd(queueId, &member2Send, sizeof(struct familyMember.name), 0) == -1)
         {
             LOG_ERROR("Failed to send message");
             exit(EXIT_FAILURE);

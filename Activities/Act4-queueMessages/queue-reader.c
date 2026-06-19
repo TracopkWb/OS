@@ -55,7 +55,6 @@ int main()
 
     LOG_ACTION("Getting data from message queue");
 
-    errno = 0;
     while (1)
     {
         if (msgrcv(queueId, &receivedMember, sizeof(receivedMember.name), 0, 0) == -1)
