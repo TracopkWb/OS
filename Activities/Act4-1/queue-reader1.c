@@ -60,7 +60,7 @@ int main()
         if (msgrcv(queueId,
            &receivedMessage,
            sizeof(receivedMessage) - sizeof(long),
-           2,
+           1,
            0) == -1)
         {
             LOG_ERROR("msgrcv failed");
