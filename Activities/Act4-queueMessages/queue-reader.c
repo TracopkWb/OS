@@ -24,7 +24,6 @@
 
 // Structure Section
 struct familyMember{
-    long msgType;
     char name[MAX_LENGTH];
     int fam_Level;
 };

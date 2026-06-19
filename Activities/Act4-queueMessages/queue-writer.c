@@ -25,7 +25,6 @@
 
 // Structure Section
 struct familyMember{
-    long msgType;
     char name[MAX_LENGTH];
     int fam_Level;
 };
@@ -63,12 +62,12 @@ int main()
         scanf("%s", member2Send.name);
         printf("\tEnter family level: \n");
         scanf("%d", &member2Send.fam_Level);
-        member2Send.msgType = member2Send.fam_Level; // Set the message type
         if(msgsnd(queueId, &member2Send, sizeof(member2Send) - sizeof(long), 0) == -1)
         {
             LOG_ERROR("Failed to send message");
             exit(EXIT_FAILURE);
         }
+        LOG_SUCCESS("Sent: %s, Level: %d", member2Send.name, member2Send.fam_Level);
     }
     
     return 0;
