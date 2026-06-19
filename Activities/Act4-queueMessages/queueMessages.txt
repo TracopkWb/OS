@@ -1,0 +1,74 @@
+1)a struct is needed where will contain 
+
+struct message
+{
+    long type;
+    char text[100];
+};
+
+
+Important Functions
+    0) ftok()    -> Creates a unique key used to identify the queue (queue ID)
+    1) msgget()  -> Opens a message queue
+        int id = msgget(key, IPC_CREATE | 0666);
+    2) msgsnd()  -> Sends a package to the message queue
+    3) msgrcv()  -> Retrieve message from the message queue
+    4) msgctl() -> Control over the queue
+
+
+ftok()
+
+key_t ftok(
+    const char *pathname, // Existing pathname
+    int proj_id  // Small integer usually a char
+);
+
+key_t key = ftok("/tmp/myfile", 65);
+
+returns a # or -1 if failed
+
+msgget() 
+
+int msgget(
+    key_t key,  //message id previously created
+    int flags // IPC_CREATE | 0666
+);
+
+msgget(key, IPC_CREATE | IPC_EXCL | 0666);
+
+returns a # or -1 if fails
+
+MSGSND()
+
+int msgsnd(
+    int qid, // queue ID
+    const void *msg, //struct
+    size_t size, // struct size, commonly calculated using sizeof(struct) - sizeof(long)
+    int flags // 0-> wait if queue is full, IPC_NOWAIT -> Exit if queue is full
+);
+
+returns a # or -1 if fails
+
+MSGRCV()
+
+size_t msgrcv(
+    int qid,
+    void *msg,
+    size_t size,
+    long type, // THIS IS THE PRIORITIZATION 
+    int flags 
+);
+
+
+msgctl(qid,IPC_RMID,NULL);
+
+Typical program 
+key = ftok("/tmp/file","A"); //returns a hash id for the file
+
+qid = msgget(key, IPC_CREATE|0666); // returns the queue id
+
+msgsnd(qid,.....) //Sends the message
+
+msgrcv(qid,...) //Receives the message
+
+msgctl(qid,IPC_RMID,NULL) //Deletes queue
