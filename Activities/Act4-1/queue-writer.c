@@ -57,9 +57,9 @@ int main()
 
     while (1)
     {
-        printf("\tEnter family member name: \n");
+        printf("\tEnter Text: \n");
         scanf("%s", msg2Send.text);
-        printf("\tEnter family level: \n");
+        printf("\tEnter message type: \n");
         scanf("%ld", &msg2Send.type);
         if(msgsnd(queueId, &msg2Send, sizeof(msg2Send) - sizeof(long), 0) == -1)
         {

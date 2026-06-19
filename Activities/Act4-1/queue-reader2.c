@@ -35,7 +35,7 @@ int main()
     struct message members[100];
     struct msqid_ds queueInfo;
 
-    LOG_INFO("Starting Activity 4 - Queue message reader");
+    LOG_INFO("Starting Activity 4 - Queue message reader 2");
 
     LOG_ACTION("Creating message queue");
     key_t queueHashKey = ftok(".", 'A');
