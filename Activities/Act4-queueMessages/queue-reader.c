@@ -23,10 +23,10 @@
 #define MAX_LENGTH 100
 
 // Structure Section
-struct familyMember
-{
-    long fam_Level;
+struct familyMember{
+    long msgType;
     char name[MAX_LENGTH];
+    int fam_Level;
 };
 
 int main()
@@ -57,13 +57,17 @@ int main()
 
     while (1)
     {
-        if (msgrcv(queueId, &receivedMember, sizeof(receivedMember.name), 1, 0) == -1)
+        if (msgrcv(queueId,
+           &receivedMember,
+           sizeof(receivedMember) - sizeof(long),
+           0,
+           0) == -1)
         {
             LOG_ERROR("msgrcv failed");
             exit(EXIT_FAILURE);
         }
 
-        LOG_INFO("Received: %s, Level: %ld",
+        LOG_INFO("Received: %s, Level: %d",
                  receivedMember.name,
                  receivedMember.fam_Level);
     }
