@@ -58,11 +58,8 @@ int main()
     errno = 0;
     while (1)
     {
-        if (msgrcv(queueId, &receivedMember, sizeof(receivedMember.name), 0, IPC_NOWAIT) == -1)
+        if (msgrcv(queueId, &receivedMember, sizeof(receivedMember.name), 0, 0) == -1)
         {
-            if (errno == ENOMSG)
-                break;
-
             LOG_ERROR("msgrcv failed");
             exit(EXIT_FAILURE);
         }
