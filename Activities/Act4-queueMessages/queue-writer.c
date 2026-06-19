@@ -34,25 +34,25 @@ int main()
     LOG_INFO("Starting Activity 4 - Queue message writer");
     
     int running = 1;
-    int packageId;
+    int queueId;
     struct familyMember member2Send;
     
     LOG_ACTION("Creating message queue");
     key_t queueHashKey = ftok(".", 'A');
 
     LOG_ACTION("Opening message queue");
-    packageId = msgget(
+    queueId = msgget(
         queueHashKey,
         IPC_CREAT | 0666
     );
 
-    if (packageId == -1)
+    if (queueId == -1)
     {
         LOG_ERROR("Failed to open message queue");
         exit(EXIT_FAILURE);
     }
 
-    LOG_SUCCESS("Message queue opened with id %d", packageId);
+    LOG_SUCCESS("Message queue opened with id %d", queueId);
 
     LOG_ACTION("Getting data from user");
 
@@ -62,7 +62,7 @@ int main()
         scanf("%s", member2Send.name);
         printf("\tEnter family level: \n");
         scanf("%ld", &member2Send.fam_Level);
-        if(msgsnd(packageId, &member2Send, sizeof(struct familyMember) - sizeof(long), 0) == -1)
+        if(msgsnd(queueId, &member2Send, sizeof(struct familyMember) - sizeof(long), 0) == -1)
         {
             LOG_ERROR("Failed to send message");
             exit(EXIT_FAILURE);
