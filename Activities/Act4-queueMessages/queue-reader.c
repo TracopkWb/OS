@@ -55,24 +55,19 @@ int main()
 
     LOG_ACTION("Getting data from message queue");
 
-    int numberOfMembers = 0;
     errno = 0;
 
     while (1)
     {
         if (msgrcv(queueId, &receivedMember, sizeof(receivedMember) - sizeof(long), 0, IPC_NOWAIT) == -1)
         {
-            if (errno == ENOMSG)
-            {
-                break;
-            }
-            else
-            {
-                LOG_ERROR("msgrcv failed");
-                exit(EXIT_FAILURE);
-            }
+            LOG_ERROR("Failed to receive message");
+            exit(EXIT_FAILURE);
         }
-        members[numberOfMembers++] = receivedMember;
+        LOG_INFO("Received family member: %s, Level: %ld \n",
+                 receivedMember.name,
+                 receivedMember.fam_Level);
+        }
     }
 
     if (errno != ENOMSG)
