@@ -19,16 +19,18 @@
 // Show the number of consonant nad Uppercase letters in the message queue
 
 // Functions Section
+void checkForLowerAndBlankSpaces(char *msg);
 
 // Global Variables
 #define MAX_LENGTH 100
 
 // Structure Section
-struct message{
+struct message
+{
     long type;
     char text[MAX_LENGTH];
 };
- 
+
 int main()
 {
     struct message receivedMessage;
@@ -58,10 +60,10 @@ int main()
     while (1)
     {
         if (msgrcv(queueId,
-           &receivedMessage,
-           sizeof(receivedMessage) - sizeof(long),
-           2,
-           0) == -1)
+                   &receivedMessage,
+                   sizeof(receivedMessage) - sizeof(long),
+                   2,
+                   0) == -1)
         {
             LOG_ERROR("msgrcv failed");
             exit(EXIT_FAILURE);
@@ -73,4 +75,27 @@ int main()
     }
 
     return 0;
+}
+
+void checkForLowerAndBlankSpaces(char *msg)
+{
+    int numConsonants = 0;
+    int numUppercase = 0;
+    ;
+
+    for (int i = 0; text[i] != '\0'; i++)
+    {
+
+        if ((text[i] >= 'A' && text[i] <= 'Z'))
+        {
+            numUppercase++;
+        }
+        else if (!((text[i] == 'a' || text[i] == 'e' || text[i] == 'i' || text[i] == 'o' || text[i] == 'u')))
+        {
+
+            numConsonants++;
+        }
+    }
+    LOG_PASS("Number of consonants: %d", numConsonants);
+    LOG_PASS("Number of uppercase letters: %d", numUppercase);
 }
