@@ -15,7 +15,8 @@
 
 #include "../../myLib/logger.h"
 
-// Activity 4 - Queue messages
+// Activity 4 - Queue Reader 1
+// Show the messages in the message queue
 
 // Functions Section
 
@@ -23,19 +24,18 @@
 #define MAX_LENGTH 100
 
 // Structure Section
-struct message
-{
+struct message{
+    long type;
     char text[MAX_LENGTH];
-    int type;
 };
-
+ 
 int main()
 {
     struct message receivedMessage;
     struct message members[100];
     struct msqid_ds queueInfo;
 
-    LOG_INFO("Starting Activity 4 - Queue message reader");
+    LOG_INFO("Starting Activity 4 - Queue message reader 1");
 
     LOG_ACTION("Creating message queue");
     key_t queueHashKey = ftok(".", 'A');
@@ -58,10 +58,10 @@ int main()
     while (1)
     {
         if (msgrcv(queueId,
-                   &receivedMessage,
-                   sizeof(receivedMessage) - sizeof(long),
-                   2,
-                   0) == -1)
+           &receivedMessage,
+           sizeof(receivedMessage) - sizeof(long),
+           2,
+           0) == -1)
         {
             LOG_ERROR("msgrcv failed");
             exit(EXIT_FAILURE);
