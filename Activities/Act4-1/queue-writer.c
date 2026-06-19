@@ -1,20 +1,19 @@
-//Standard C
+// Standard C
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-//File System & Permissions
+// File System & Permissions
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h> // FIFO pipes
 
-// System V IPC 
+// System V IPC
 #include <sys/ipc.h>
 #include <sys/msg.h>
 
 #include "../../myLib/logger.h"
-
 
 // Activity 4 - Queue messages
 
@@ -24,26 +23,26 @@
 #define MAX_LENGTH 100
 
 // Structure Section
-struct message{
+struct message
+{
     long type;
     char text[MAX_LENGTH];
 };
- 
+
 int main()
 {
     LOG_INFO("Starting Activity 4 - Queue message writer");
-    
+
     int queueId;
     struct message msg2Send;
-    
+
     LOG_ACTION("Creating message queue");
     key_t queueHashKey = ftok(".", 'A');
 
     LOG_ACTION("Opening message queue");
     queueId = msgget(
         queueHashKey,
-        IPC_CREAT | 0666
-    );
+        IPC_CREAT | 0666);
 
     if (queueId == -1)
     {
@@ -58,17 +57,16 @@ int main()
     while (1)
     {
         printf("\tEnter Text: \n");
-        scanf("%s", msg2Send.text);
+        fgets(msg2Send.text, sizeof(msg2Send.text), stdin);
         printf("\tEnter message type: \n");
-        fgets(msg2Send.text, MAX_LENGTH, stdin);
-        // scanf("%ld", &msg2Send.type);
-        if(msgsnd(queueId, &msg2Send, sizeof(msg2Send) - sizeof(long), 0) == -1)
+        fgets(msg2Send.type, sizeof(msg2Send.type), stdin);
+        if (msgsnd(queueId, &msg2Send, sizeof(msg2Send) - sizeof(long), 0) == -1)
         {
             LOG_ERROR("Failed to send message");
             exit(EXIT_FAILURE);
         }
         LOG_SUCCESS("Sent: %s, Level: %ld", msg2Send.text, msg2Send.type);
     }
-    
+
     return 0;
 }
