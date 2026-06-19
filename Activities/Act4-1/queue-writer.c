@@ -59,7 +59,7 @@ int main()
         printf("\tEnter Text: \n");
         fgets(msg2Send.text, sizeof(msg2Send.text), stdin);
         printf("\tEnter message type: \n");
-        fgets(msg2Send.type, sizeof(msg2Send.type), stdin);
+        scanf("%ld", &msg2Send.type);
         if (msgsnd(queueId, &msg2Send, sizeof(msg2Send) - sizeof(long), 0) == -1)
         {
             LOG_ERROR("Failed to send message");
