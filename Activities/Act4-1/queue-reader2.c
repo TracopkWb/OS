@@ -19,7 +19,7 @@
 // Show the number of consonant nad Uppercase letters in the message queue
 
 // Functions Section
-void checkForLowerAndBlankSpaces(char *msg);
+void checkForLowerAndBlankSpaces(char *text);
 
 // Global Variables
 #define MAX_LENGTH 100
@@ -77,7 +77,7 @@ int main()
     return 0;
 }
 
-void checkForLowerAndBlankSpaces(char *msg)
+void checkForLowerAndBlankSpaces(char *text)
 {
     int numConsonants = 0;
     int numUppercase = 0;
