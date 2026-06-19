@@ -14,7 +14,9 @@
 #include <sys/msg.h>
 
 #include "../../myLib/logger.h"
-// #TITLE#
+
+
+// Activity 4 - Queue messages
 
 // Functions Section
 
@@ -22,9 +24,9 @@
 #define MAX_LENGTH 100
 
 // Structure Section
-struct package{
-    long package_flag;
-    char package_data[MAX_LENGTH];
+struct familyMember{
+    long fam_Level;
+    char name[MAX_LENGTH];
 };
 
 int main()
@@ -33,7 +35,7 @@ int main()
     
     int running = 1;
     int packageId;
-    struct package packageToSend;
+    struct familyMember member2Send;
     
     LOG_ACTION("Creating message queue");
     key_t queueHashKey = ftok(".", 'A');
@@ -56,19 +58,16 @@ int main()
 
     while (running)
     {
-        printf("\tEnter text to send: \n");
-        scanf("%s", packageToSend.package_data);
-        printf("\tSet priority: \n");
-        scanf("%ld", &packageToSend.package_flag);
-        if(msgsnd(packageId, &packageToSend, sizeof(struct package) - sizeof(long), 0) == -1)
+        printf("\tEnter family member name: \n");
+        scanf("%s", member2Send.name);
+        printf("\tEnter family level: \n");
+        scanf("%ld", &member2Send.fam_Level);
+        if(msgsnd(packageId, &member2Send, sizeof(struct familyMember) - sizeof(long), 0) == -1)
         {
             LOG_ERROR("Failed to send message");
             exit(EXIT_FAILURE);
         }
     }
     
-
-    
-
     return 0;
 }
