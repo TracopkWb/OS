@@ -87,11 +87,13 @@ void checkForLowerAndBlankSpaces(char *msg)
     for(int i = 0; msg[i] != '\0'; i++) {
       
       if((msg[i] == 'a' || msg[i] == 'e' || msg[i] == 'i' || msg[i] == 'o' || msg[i] == 'u')) {
-         printf("%c is a vowel letter.\n", msg[i]);
-         LOG_INFO("%c is a vowel letter.", msg[i]);
+        // printf("%c is a vowel letter.\n", msg[i]);
+        // LOG_INFO("%c is a vowel letter.", msg[i]);
+        numVowels++;
       }else if(msg[i] == ' ') {
-         printf("%c is a blank space.\n", msg[i]);
-         LOG_INFO("%c is a blank space.", msg[i]);
+        // printf("%c is a blank space.\n", msg[i]);
+        // LOG_INFO("%c is a blank space.", msg[i]);
+        numBlankSpaces++;
       }
 
       LOG_PASS("Number of vowels: %d", numVowels);
