@@ -23,7 +23,8 @@
 #define MAX_LENGTH 100
 
 // Structure Section
-struct message{
+struct message
+{
     char text[MAX_LENGTH];
     int type;
 };
@@ -57,16 +58,16 @@ int main()
     while (1)
     {
         if (msgrcv(queueId,
-           &receivedMessage,
-           sizeof(receivedMessage) - sizeof(long),
-           1,
-           0) == -1)
+                   &receivedMessage,
+                   sizeof(receivedMessage) - sizeof(long),
+                   2,
+                   0) == -1)
         {
             LOG_ERROR("msgrcv failed");
             exit(EXIT_FAILURE);
         }
 
-        LOG_INFO("Received: %s, Level: %d",
+        LOG_INFO("Received: %s, Level: %ld",
                  receivedMessage.text,
                  receivedMessage.type);
     }
