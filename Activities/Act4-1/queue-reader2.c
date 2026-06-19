@@ -72,6 +72,7 @@ int main()
         LOG_INFO("Received: %s, Level: %ld",
                  receivedMessage.text,
                  receivedMessage.type);
+        checkForLowerAndBlankSpaces(receivedMessage.text);
     }
 
     return 0;
