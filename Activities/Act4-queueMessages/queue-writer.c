@@ -24,7 +24,7 @@
 // Structure Section
 struct package{
     long package_flag;
-    int package_data[MAX_LENGTH];
+    char package_data[MAX_LENGTH];
 };
 
 int main()
