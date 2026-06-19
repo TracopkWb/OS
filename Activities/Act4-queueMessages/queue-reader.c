@@ -61,7 +61,7 @@ int main()
     while (msgrcv(
                queueId,
                &receivedMember,
-               sizeof(receivedMember.name) - sizeof(long),
+               sizeof(receivedMember) - sizeof(long),
                0,
                IPC_NOWAIT) != -1)
     {
