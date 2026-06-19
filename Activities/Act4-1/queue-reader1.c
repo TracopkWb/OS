@@ -96,7 +96,7 @@ void checkForLowerAndBlankSpaces(char *msg)
         numBlankSpaces++;
       }
 
-      LOG_PASS("Number of vowels: %d", numVowels);
-      LOG_PASS("Number of blank spaces: %d", numBlankSpaces);
-   }
+    }
+    LOG_PASS("Number of vowels: %d", numVowels);
+    LOG_PASS("Number of blank spaces: %d", numBlankSpaces);
 }
