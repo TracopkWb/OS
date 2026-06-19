@@ -31,7 +31,7 @@ struct message{
  
 int main()
 {
-    struct message receivedMember;
+    struct message receivedMessage;
     struct message members[100];
     struct msqid_ds queueInfo;
 
@@ -58,8 +58,8 @@ int main()
     while (1)
     {
         if (msgrcv(queueId,
-           &receivedMember,
-           sizeof(receivedMember) - sizeof(long),
+           &receivedMessage,
+           sizeof(receivedMessage) - sizeof(long),
            2,
            0) == -1)
         {
@@ -68,8 +68,8 @@ int main()
         }
 
         LOG_INFO("Received: %s, Level: %ld",
-                 receivedMember.text,
-                 receivedMember.type);
+                 receivedMessage.text,
+                 receivedMessage.type);
     }
 
     return 0;
