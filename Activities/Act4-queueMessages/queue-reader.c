@@ -55,7 +55,6 @@ int main()
 
     LOG_ACTION("Getting data from message queue");
 
-    errno = 0;
 
     while (1)
     {
@@ -67,22 +66,6 @@ int main()
         LOG_INFO("Received family member: %s, Level: %ld \n",
                  receivedMember.name,
                  receivedMember.fam_Level);
-        }
-    }
-
-    if (errno != ENOMSG)
-    {
-        LOG_ERROR("msgrcv failed");
-        exit(EXIT_FAILURE);
-    }
-
-    LOG_INFO("Received %d messages from the queue", numberOfMembers);
-
-    for (int j = 0; j < numberOfMembers; j++)
-    {
-        LOG_INFO("Family member: %s, Level: %ld",
-                 members[j].name,
-                 members[j].fam_Level);
     }
 
     return 0;
