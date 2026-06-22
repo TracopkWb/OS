@@ -48,7 +48,7 @@ int main()
         exit(1);
     }
 
-    array = (int *) shmat(shmSpaceId,NULL,0);
+    array = (int *) shmat(shmId,NULL,0);
 
     if(array == (int *) (-1)){
         perror("shmat");
@@ -70,7 +70,7 @@ int main()
     }
     
     LOG_ACTION("Deleting memory shared memory segment");
-    shmctl(shmSpaceId,IPC_RMID,NULL);
+    shmctl(shmId,IPC_RMID,NULL);
 
     return 0;
 }
