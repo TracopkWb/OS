@@ -48,7 +48,7 @@ int main()
         exit(1);
     }
 
-    array = (int *) shmat(ishmSpaceId,NULL,0);
+    array = (int *) shmat(shmSpaceId,NULL,0);
 
     if(array == (int *) (-1)){
         perror("shmat");
