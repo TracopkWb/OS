@@ -23,18 +23,17 @@
 #define MAX_LENGTH 100
 
 // Structure Section
-struct familyMember{
-    char name[MAX_LENGTH];
-    int fam_Level;
+struct message{
+    long type;
+    char text[MAX_LENGTH];
 };
-
+ 
 int main()
 {
-    struct familyMember receivedMember;
-    struct familyMember members[100];
+    struct message receivedMember;
     struct msqid_ds queueInfo;
 
-    LOG_INFO("Starting Activity 4 - Queue message reader");
+    LOG_INFO("Starting Activity 4 - Queue message reader 1");
 
     LOG_ACTION("Creating message queue");
     key_t queueHashKey = ftok(".", 'A');
@@ -59,16 +58,16 @@ int main()
         if (msgrcv(queueId,
            &receivedMember,
            sizeof(receivedMember) - sizeof(long),
-           0,
+           1,
            0) == -1)
         {
             LOG_ERROR("msgrcv failed");
             exit(EXIT_FAILURE);
         }
 
-        LOG_INFO("Received: %s, Level: %d",
-                 receivedMember.name,
-                 receivedMember.fam_Level);
+        LOG_INFO("Received: %s, Level: %ld",
+                 receivedMember.text,
+                 receivedMember.type);
     }
 
     return 0;

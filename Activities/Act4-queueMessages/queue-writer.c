@@ -24,9 +24,9 @@
 #define MAX_LENGTH 100
 
 // Structure Section
-struct familyMember{
-    char name[MAX_LENGTH];
-    int fam_Level;
+struct message{
+    char text[MAX_LENGTH];
+    int type;
 };
 
 int main()
@@ -35,7 +35,7 @@ int main()
     
     int running = 1;
     int queueId;
-    struct familyMember member2Send;
+    struct message member2Send;
     
     LOG_ACTION("Creating message queue");
     key_t queueHashKey = ftok(".", 'A');
@@ -59,15 +59,15 @@ int main()
     while (running)
     {
         printf("\tEnter family member name: \n");
-        scanf("%s", member2Send.name);
+        scanf("%s", member2Send.text);
         printf("\tEnter family level: \n");
-        scanf("%d", &member2Send.fam_Level);
+        scanf("%d", &member2Send.type);
         if(msgsnd(queueId, &member2Send, sizeof(member2Send) - sizeof(long), 0) == -1)
         {
             LOG_ERROR("Failed to send message");
             exit(EXIT_FAILURE);
         }
-        LOG_SUCCESS("Sent: %s, Level: %d", member2Send.name, member2Send.fam_Level);
+        LOG_SUCCESS("Sent: %s, Level: %d", member2Send.text, member2Send.type);
     }
     
     return 0;

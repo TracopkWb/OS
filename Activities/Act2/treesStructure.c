@@ -4,7 +4,7 @@
 
 typedef struct Node
 {
-    char *name;
+    char *text;
     int numChildren;
     struct Node *children[10];
 } Node;
@@ -12,7 +12,7 @@ typedef struct Node
 void createProcessTree(Node *node)
 {
     printf("%s PID=%d PPID=%d\n",
-           node->name,
+           node->text,
            getpid(),
            getppid());
 
