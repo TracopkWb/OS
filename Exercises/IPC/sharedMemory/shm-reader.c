@@ -58,7 +58,7 @@ int main()
 
     LOG_ACTION("Reading array from the shared memory");
 
-    for (int i = 0; i < TAM; i++)
+    for (int i = 0; i < SIZE; i++)
     {
         LOG_INFO("%d) %d\n", i, array[i]);
     }
