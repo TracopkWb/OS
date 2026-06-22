@@ -11,6 +11,7 @@
 
 // System V IPC
 #include <sys/ipc.h>
+#include <sys/shm.h>
 #include <sys/msg.h>
 
 #include "../../../myLib/logger.h"
@@ -31,7 +32,7 @@ int main()
     int *array;
 
     key = ftok(".", 'A');
-
+    
     if (key == -1)
     {
         perror("ftok");
