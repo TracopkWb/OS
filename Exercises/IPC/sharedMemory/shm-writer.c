@@ -13,7 +13,7 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 
-#include "../../myLib/logger.h"
+#include "../../../myLib/logger.h"
 
 // Shared Memory Writer 1 
 
