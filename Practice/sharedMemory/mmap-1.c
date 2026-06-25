@@ -44,7 +44,7 @@ int main()
     }
 
     LOG_ACTION("Writing data on the mapped memory");
-    for(int i = 0: i < SIZE; i++)
+    for(int i = 0; i < SIZE; i++)
         mapPtr[i] = i*10;
 
     LOG_ACTION("Reading data from the mapped memory");
