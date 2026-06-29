@@ -14,11 +14,14 @@
 #include <sys/shm.h>
 #include <sys/msg.h>
 
-#include "../../../myLib/logger.h"
+#include "../../myLib/logger.h"
 
 // Shared Memory Reader - 1
 
-// Functions Section
+// Functions 
+
+void getSmallestElement(int*array);
+int getSumOfElements(int*array);
 
 // Global Variables
 #define SIZE 5
@@ -60,13 +63,14 @@ int main()
 
     LOG_ACTION("Reading array from the shared memory");
 
-    for (int r = 0; r<REP;r++)
+    for (int i = 0; i < SIZE; i++)
     {
-        for (int i = 0; i < SIZE; i++)
-        {
-            LOG_INFO("%d) %d\n", i, array[i]);
-        }
+        LOG_INFO("%d) %d\n", i, array[i]);
     }
+
+    getSmallestElement(array);
+    getSumOfElements(array);
+
 
     if (shmdt(array) == -1)
     {
@@ -78,4 +82,34 @@ int main()
     // shmctl(shmSegment,IPC_RMID,NULL);
 
     return 0;
+}
+
+
+void getSmallestElement(int*array){
+
+    LOG_INFO("Finding biggest Element");
+    int biggestTemp = array[0];
+
+    for (int i = 1; i < SIZE - 1; i++)
+    {
+        LOG_INFO("%d) %d\n", i, array[i]);
+        if(biggestTemp < array[i]){
+            LOG_INFO("New biggest number %d",array[i]);
+            biggestTemp = array[i];
+        }
+
+        LOG_INFO("Biggest number in the array is: %d",biggestTemp);
+    }
+}
+
+int getSumOfElements(int*array){
+    LOG_INFO("Adding all Elements");
+    int sumOfElements = 0;
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        sumOfElements = sumOfElements + array[0]; 
+        
+    }
+    LOG_INFO("Biggest number in the array is: %d",sumOfElements);
 }

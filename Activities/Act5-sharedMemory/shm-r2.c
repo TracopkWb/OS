@@ -14,15 +14,17 @@
 #include <sys/shm.h>
 #include <sys/msg.h>
 
-#include "../../../myLib/logger.h"
+#include "../../myLib/logger.h"
 
 // Shared Memory Reader - 1
 
-// Functions Section
+// Functions 
+
+void getSmallestElement(int*array);
+float getAverage(int *array);
 
 // Global Variables
 #define SIZE 5
-#define REP 100000
 // Structure Section
 
 int main()
@@ -60,13 +62,15 @@ int main()
 
     LOG_ACTION("Reading array from the shared memory");
 
-    for (int r = 0; r<REP;r++)
+    for (int i = 0; i < SIZE; i++)
     {
-        for (int i = 0; i < SIZE; i++)
-        {
-            LOG_INFO("%d) %d\n", i, array[i]);
-        }
+        LOG_INFO("%d) %d\n", i, array[i]);
     }
+
+    getSmallestElement(array);
+
+    getAverage(array);
+
 
     if (shmdt(array) == -1)
     {
@@ -78,4 +82,37 @@ int main()
     // shmctl(shmSegment,IPC_RMID,NULL);
 
     return 0;
+}
+
+
+void getSmallestElement(int*array){
+
+    LOG_INFO("Finding biggest Element");
+    int biggestTemp = array[0];
+
+    for (int i = 1; i < SIZE - 1; i++)
+    {
+        LOG_INFO("%d) %d\n", i, array[i]);
+        if(biggestTemp > array[i]){
+            LOG_INFO("New smallest number %d",array[i]);
+            biggestTemp = array[i];
+        }
+
+        LOG_INFO("Smallest number in the array is: %d",biggestTemp);
+    }
+}
+
+float getAverage(int *array){
+
+    LOG_INFO("Finding Average");
+    int average = 0;
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        average = average + array[i];
+        LOG_INFO("average: %d",average);
+    }
+
+    average = average / SIZE;
+    LOG_INFO("Average number in the array is: %f",average);
 }

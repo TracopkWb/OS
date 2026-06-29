@@ -14,15 +14,34 @@
 #include <sys/shm.h>
 #include <sys/msg.h>
 
-#include "../../../myLib/logger.h"
+#include "../../myLib/logger.h"
 
 // Shared Memory Reader - 1
 
 // Functions Section
+void swap(int *arr, int i, int j)
+{
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
+void bubbleSort(int arr[], int n)
+{
+    for (int i = 0; i < n - 1; i++)
+    {
+
+        // Last i elements are already in place, so the loop will only num n - i - 1 times
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (arr[j] > arr[j + 1])
+                swap(arr, j, j + 1);
+        }
+    }
+}
 
 // Global Variables
 #define SIZE 5
-#define REP 100000
 // Structure Section
 
 int main()
@@ -60,13 +79,12 @@ int main()
 
     LOG_ACTION("Reading array from the shared memory");
 
-    for (int r = 0; r<REP;r++)
+    for (int i = 0; i < SIZE; i++)
     {
-        for (int i = 0; i < SIZE; i++)
-        {
-            LOG_INFO("%d) %d\n", i, array[i]);
-        }
+        LOG_INFO("%d) %d\n", i, array[i]);
     }
+
+    bubbleSort(arr, SIZE);
 
     if (shmdt(array) == -1)
     {
