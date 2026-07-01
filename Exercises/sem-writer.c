@@ -13,8 +13,9 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/msg.h>
+#include <sys/sem.h>
 
-#include "../../myLib/logger.h"
+#include "../myLib/logger.h"
 
 // Shared Memory Writer 1 
 
@@ -77,7 +78,6 @@ int main()
         exit(1);
     }
 
-    
 
     array = (int *)shmat(idMemory, NULL, 0);
 

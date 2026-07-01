@@ -13,8 +13,9 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <sys/msg.h>
+#include <sys/sem.h>
 
-#include "../../myLib/logger.h"
+#include "../myLib/logger.h"
 
 // Shared Memory Reader - 1
 
@@ -82,13 +83,13 @@ int main()
 
         for (int i = 0; i < SIZE; i++)
         {
-            array[i] =+ 1;
+            array[i] = array[i] + 1;
             LOG_INFO("%d) %d\n", i, array[i]);
         }
 
         operation.sem_op = 1; // Signal (increment)
         semop(semId, &operation, 1); // Perform the operation
-        
+
     }
 
     if (shmdt(array) == -1)
